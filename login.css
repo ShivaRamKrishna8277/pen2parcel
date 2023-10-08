@@ -1,0 +1,11 @@
+:root{
+    --p_color : #613ad3;
+    --box-shadow-bottom: 0 10px 10px #4832d41f;
+    --border: 2px solid #4832d41f;
+    --box-shadow: 5px 5px 2px #4832d41f;
+    --black: #212529;
+    --b_bg: #f2efff;
+}
+.form_wrapper{
+    box-shadow: 0 0 10px 1px #4832d41f;
+}

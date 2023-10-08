@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" href="assets/tab_icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/6b08050b6d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 d-lg-block menu_bar_wrapper" id="menu_bar_wrapper">
+                    <div class="menu_header p-3 pe-4 d-flex justify-content-between align-items-center">
+                        <div class="menu_brand fw-bold text-dark">Pen<span>2</span>Parcel</div>
+                        <img src="assets/close_icon.svg" alt="" height="15" class="d-lg-none" id="close_icon" onclick="closeMenu()">
+                    </div>
+                    <div class="menu_body p-3 py-4 text-light">
+                        <ul class="link_list p-0">
+                            <li class="text-capitalize mb-4 menu_link active" id="cart" onclick="openCart()">cart</li>
+                            <li class="text-capitalize mb-4">
+                                orders
+                                <ul class="inner_link mt-2">
+                                    <li class="py-2 fw-light menu_link" id="delivered-orders" onclick="openDelorders()">Delivered Orders</li>
+                                    <li class="py-2 fw-light menu_link" id="in-transit-orders" onclick="openInorders()">In-Transit Orders</li>
+                                    <li class="py-2 fw-light menu_link" id="cancelled-orders" onclick="openCnclorders()">Cancelled Orders</li>
+                                </ul>
+                            </li>
+                            <li class="text-capitalize mb-4">
+                                profile
+                                <ul class="inner_link mt-2">
+                                    <li class="py-2 fw-light menu_link" id="personal-info" onclick="openPerinfo()">Personal Info</li>
+                                    <li class="py-2 fw-light menu_link" id="manage-addresses" onclick="openManaddress()">Manage Addresses</li>
+                                </ul>
+                            </li>
+                            <li class="text-capitalize mb-4 menu_link" id="others" onclick="openOthers()">others</li>
+                            <li class="text-capitalize menu_link" id="logout" data-bs-toggle="modal" data-bs-target="#exampleModal">logout</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col content_wrapper position-relative" id="content_wrapper">
+                    <div class="content_display_section min-vh-100">
+                        <div class="content_header bg-light p-3 p-lg-3 px-lg-4 d-flex align-items-center justify-content-between">
+                            <img src="assets/menu_icon.svg" id="menu_icon" alt="" height="15" class="d-inline me-4 d-lg-none" onclick="openMenu()">
+                            <p class="d-inline content_title fw-medium mb-0 opacity-75" id="content_title">Cart</p>
+                            <section class="products_nav">
+                                <a href="products.html">
+                                    <img src="assets/Order_box_icon.svg" alt="" height="20">
+                                    <span class="primary_color h6 d-none d-lg-inline">Products</span>
+                                </a>
+                            </section>
+                        </div>
+                        <div class="d-flex justify-content-center m-4 mt-5 h-50 align-items-center bg-white rounded" id="loading">
+                            <div class="spinner-border" role="status" style="color: #613ad3;">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <!-- cart content -->
+                        <div class="cart_content_section content_wrappers_group" id="cart_content">
+                            <div class="content_body mx-3 mt-4 mx-lg-4 h-75">
+                                <div class="cart_section">
+                                    <button id="adpro_btn" class="text-light p-2 px-4 rounded">Add products to cart &nbsp; +</button>
+                                    <div class="cart_wrapper container-fluid bg-white p-4 mt-4 rounded scroll_bar">
+                                        <div class="row">
+                                            <div class="col-lg-7 col-12 mb-5 mb-lg-0">
+                                                <div class="container-fluid cart_list m-0 px-0">
+                                                    <div class="row cart_item gx-0 justify-content-between pb-4 mb-4 border-bottom">
+                                                        <section class="col-12 col-md-5 col-lg-7 item_left d-flex justify-content-start mb-4 mb-md-0">
+                                                            <img src="assets/A4_Rulled.svg" alt="" class="img-thumbnail product_img me-3">
+                                                            <div class="product_details d-flex justify-content-between flex-column">
+                                                                <section class="product_detail_header">
+                                                                    <p class="product_title fw-bold mb-0 text-dark-emphasis">A4 size Ruled 70 gsm paper</p>
+                                                                    <p class="product_sub_title text-dark-emphasis">Dimension: <span class="fw-bold">29.7 X 42cm</span></p>
+                                                                </section>
+                                                                <section id="remove_btn" class="remove_btn d-flex align-items-center">
+                                                                    <img src="assets/remove.svg" alt="" height="10" class="me-1">
+                                                                    <p class="remove_text text-danger m-0">Remove</p>
+                                                                </section>
+                                                            </div>
+                                                        </section>
+                        
+                                                        <section class="col-12 col-md-6 col-lg-5 item_right text-end">
+                                                            <p class="product_price rounded p-2 px-4 text-center text-dark-emphasis fw-medium w-100 ms-auto">₹3/page</p>
+                                                            <div class="delivery_date d-none d-md-block">
+                                                                <p class="delivery mb-0 fw-bold opacity-50">Delivery By:</p>
+                                                                <p class="delivery_date mb-0">15-10-2023</p>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                    <div class="row cart_item gx-0 justify-content-between pb-4 mb-4 border-bottom">
+                                                        <section class="col-12 col-md-5 col-lg-7 item_left d-flex justify-content-start mb-4 mb-md-0">
+                                                            <img src="assets/long_notebook.svg" alt="" class="img-thumbnail product_img me-3">
+                                                            <div class="product_details d-flex justify-content-between flex-column">
+                                                                <section class="product_detail_header">
+                                                                    <p class="product_title fw-bold mb-0 text-dark-emphasis">Long Notebook (200 Pages)</p>
+                                                                    <p class="product_sub_title text-dark-emphasis">Rule Type: <span class="fw-bold">Single Lined</span></p>
+                                                                </section>
+                                                                <section id="remove_btn" class="remove_btn d-flex align-items-center">
+                                                                    <img src="assets/remove.svg" alt="" height="10" class="me-1">
+                                                                    <p class="remove_text text-danger m-0">Remove</p>
+                                                                </section>
+                                                            </div>
+                                                        </section>
+                        
+                                                        <section class="col-12 col-md-6 col-lg-5 item_right text-end">
+                                                            <p class="product_price rounded p-2 px-4 text-center text-dark-emphasis fw-medium w-100 ms-auto">₹3/page</p>
+                                                            <div class="delivery_date d-none d-md-block">
+                                                                <p class="delivery mb-0 fw-bold opacity-50">Delivery By:</p>
+                                                                <p class="delivery_date mb-0">15-10-2023</p>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                    <div class="row cart_item gx-0 justify-content-between pb-4 mb-4 border-bottom">
+                                                        <section class="col-12 col-md-5 col-lg-7 item_left d-flex justify-content-start mb-4 mb-md-0">
+                                                            <img src="assets/short_notebook.svg" alt="" class="img-thumbnail product_img me-3">
+                                                            <div class="product_details d-flex justify-content-between flex-column">
+                                                                <section class="product_detail_header">
+                                                                    <p class="product_title fw-bold mb-0 text-dark-emphasis">Long Notebook (100 Pages)</p>
+                                                                    <p class="product_sub_title text-dark-emphasis">Rule Type: <span class="fw-bold">Unruled</span></p>
+                                                                </section>
+                                                                <section id="remove_btn" class="remove_btn d-flex align-items-center">
+                                                                    <img src="assets/remove.svg" alt="" height="10" class="me-1">
+                                                                    <p class="remove_text text-danger m-0">Remove</p>
+                                                                </section>
+                                                            </div>
+                                                        </section>
+                        
+                                                        <section class="col-12 col-md-6 col-lg-5 item_right text-end">
+                                                            <p class="product_price rounded p-2 px-4 text-center text-dark-emphasis fw-medium w-100 ms-auto">₹3/page</p>
+                                                            <div class="delivery_date d-none d-md-block">
+                                                                <p class="delivery mb-0 fw-bold opacity-50">Delivery By:</p>
+                                                                <p class="delivery_date mb-0">15-10-2023</p>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                    <div class="row cart_item gx-0 justify-content-between">
+                                                        <section class="col-12 col-md-5 col-lg-7 item_left d-flex justify-content-start mb-4 mb-md-0">
+                                                            <img src="assets/short_notebook.svg" alt="" class="img-thumbnail product_img me-3">
+                                                            <div class="product_details d-flex justify-content-between flex-column">
+                                                                <section class="product_detail_header">
+                                                                    <p class="product_title fw-bold mb-0 text-dark-emphasis">Long Notebook (100 Pages)</p>
+                                                                    <p class="product_sub_title text-dark-emphasis">Rule Type: <span class="fw-bold">Unruled</span></p>
+                                                                </section>
+                                                                <section id="remove_btn" class="remove_btn d-flex align-items-center">
+                                                                    <img src="assets/remove.svg" alt="" height="10" class="me-1">
+                                                                    <p class="remove_text text-danger m-0">Remove</p>
+                                                                </section>
+                                                            </div>
+                                                        </section>
+                        
+                                                        <section class="col-12 col-md-6 col-lg-5 item_right text-end">
+                                                            <p class="product_price rounded p-2 px-4 text-center text-dark-emphasis fw-medium w-100 ms-auto">₹3/page</p>
+                                                            <div class="delivery_date d-none d-md-block">
+                                                                <p class="delivery mb-0 fw-bold opacity-50">Delivery By:</p>
+                                                                <p class="delivery_date mb-0">15-10-2023</p>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                            </div>
+                        
+                                            <div class="col-lg-5 col-12 ps-lg-5 ps-2 pe-4">
+                                                <p class="h5 fw-medium">Read before placing the order</p>
+                                                <ul class="my-3 ps-3 tac_list">
+                                                    <li class="fw-medium">To place an order, a 50 rupee upfront fee is mandatory.</li>
+                                                    <li class="fw-medium">The upfront fee is fully refundable upon order confirmation.</li>
+                                                    <li class="fw-medium">Orders are confirmed after content review and price calculation based on page count.</li>
+                                                    <li class="fw-medium">Order cancellation results in a 50% refund of the upfront fee.</li>
+                                                    <li class="fw-medium">Refunds are processed within [Specify timeframe] after cancellation or confirmation.</li>
+                                                    <li class="fw-medium">The upfront fee covers initial processing costs and ensures commitment.</li>
+                                                    <li class="fw-medium">Any order changes after confirmation may affect the final price.</li>
+                                                    <li class="fw-medium">We reserve the right to refuse or cancel orders, with a full upfront fee refund.</li>
+                                                </ul>
+                                                <button type="btn" class="w-100 checkout_btn text-light rounded-1"><a href="product_checkout.html" class="text-white">Proceed to Checkout</a></button>
+                                            </div>
+                                        </div>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- cart content end -->
+                        <!-- delivered orders -->
+                        <div class="delivered_orders_content_section content_wrappers_group" id="delivered_orders_content">
+                            <div class="content_body mx-3 mt-4 mx-lg-4 h-75">
+                                <div class="delivered_orders_section">
+                                    <div class="container-fluid p-0 delivered_orders_header">
+                                        <div class="row gx-0">
+                                            <div class="dropdown col">
+                                                <button class="btn bg-white dropdown-toggle rounded-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  Sort By
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                  <li><a class="dropdown-item" href="#">Delivery Date (Newest)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Delivery Date (Oldest)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Amount (Low to High)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Amount (High to Low)</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row gx-0 mt-4">
+                                            <div class="delivered_orders_table_wrapper p-3 pb-0 bg-white rounded-1 w-100 overflow-y-auto scroll_bar">
+                                                <table class="table delivered_orders_table">
+                                                    <thead>
+                                                      <tr class="align-baseline">
+                                                        <th scope="col">ORDER ID</th>
+                                                        <th scope="col" class="w-25">PRODUCT</th>
+                                                        <th scope="col" class="w-25">ADDRESS</th>
+                                                        <th scope="col">DELIVERY DATE</th>
+                                                        <th scope="col">AMOUNT</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#5691</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1862</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#3750</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#5691</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1862</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#3750</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#5691</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1862</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#3750</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023</td>
+                                                        <td>₹210 + 40 delivery</td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- delivered orders end -->
+                        <!-- in_transit orders -->
+                        <div class="in_transit_orders_content_section content_wrappers_group" id="in_transit_orders_content">
+                            <div class="content_body mx-3 mt-4 mx-lg-4 h-75">
+                                <div class="in_transit_orders_section">
+                                    <div class="container-fluid p-0 in_transit_orders_header">
+                                        <div class="row gx-0">
+                                            <div class="dropdown col">
+                                                <button class="btn bg-white dropdown-toggle rounded-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  Sort By
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                  <li><a class="dropdown-item" href="#">Delivery Date (Newest)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Delivery Date (Oldest)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Amount (Low to High)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Amount (High to Low)</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row gx-0 mt-4">
+                                            <div class="in_transit_orders_table_wrapper p-3 pb-0 bg-white rounded-1 w-100 overflow-y-auto scroll_bar">
+                                                <table class="table in_transit_orders_table">
+                                                    <thead>
+                                                      <tr class="align-baseline">
+                                                        <th scope="col">ORDER ID</th>
+                                                        <th scope="col" class="w-25">PRODUCT</th>
+                                                        <th scope="col" class="w-25">ADDRESS</th>
+                                                        <th scope="col">ARRIVING BY</th>
+                                                        <th scope="col">TRACK</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td>#1407</td>
+                                                        <td>A4 Size 70gsm paper X 70pages</td>
+                                                        <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                        <td>20-09-2023 (2 days)</td>
+                                                        <td><a href="" class="text-decoration-underline">Track Order</a></td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- in_transit orders end -->
+                        <!-- cancelled orders -->
+                        <div class="cancelled_orders_content_section content_wrappers_group" id="cancelled_orders_content">
+                            <div class="content_body mx-3 mt-4 mx-lg-4 h-75">
+                                <div class="cancelled_orders_section">
+                                    <div class="container-fluid p-0 cancelled_orders_header">
+                                        <div class="row gx-0">
+                                            <div class="dropdown col">
+                                                <button class="btn bg-white dropdown-toggle rounded-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  Sort By
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                  <li><a class="dropdown-item" href="#">Delivery Date (Newest)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Delivery Date (Oldest)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Amount (Low to High)</a></li>
+                                                  <li><a class="dropdown-item" href="#">Amount (High to Low)</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row gx-0 mt-4">
+                                            <div class="cancelled_orders_table_wrapper p-3 pb-0 bg-white rounded-1 w-100 overflow-y-auto scroll_bar">
+                                                <table class="table cancelled_orders_table">
+                                                    <thead>
+                                                      <tr class="align-baseline">
+                                                        <th scope="col">ORDER ID</th>
+                                                        <th scope="col" class="w-25">PRODUCT</th>
+                                                        <th scope="col" class="w-25">ADDRESS</th>
+                                                        <th scope="col">AMOUNT</th>
+                                                        <th scope="col">RE-ORDER</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹210 + 40 delivery</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹40</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹210 + 40 delivery</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹40</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹210 + 40 delivery</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹40</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹210 + 40 delivery</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹40</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹210 + 40 delivery</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹40</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹210 + 40 delivery</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>#1407</td>
+                                                            <td>A4 Size 70gsm paper X 70pages</td>
+                                                            <td>Raghavendra colony, shaktinagar, Raichur - 584170</td>
+                                                            <td>₹40</td>
+                                                            <td><a href="" class="text-decoration-underline">Order again</a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- cancelled orders end -->
+                        <!-- personal Info -->
+                        <div class="personal_info_content_section content_wrappers_group" id="personal_info_content">
+                            <div class="content_body mx-3 mt-4 mx-lg-4 h-75">
+                                <div class="container-fluid personal_info_section bg-white p-5 rounded-1 overflow-y-scroll scroll_bar">
+                                    <div class="row g-0">
+                                        <div class="profile_img col">
+                                            <img src="assets/demo_profile_male.png" class="img-fluid p-2" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="row my-4 g-0 opacity-25"><hr></div>
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-lg-2"><p class="m-0 mb-2">Name:</p></div>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="border p-1 ps-2 rounded-1 mb-2" placeholder="Shivaram">
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="border p-1 ps-2 rounded-1 mb-2" placeholder="Krishna">
+                                        </div>
+                                    </div>
+                                    <div class="row my-4 mt-3 g-0 opacity-25"><hr></div>
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-lg-2"><p class="m-0 mb-2">Email Address:</p></div>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="border p-1 ps-2 rounded-1 mb-2" placeholder="paulwalker8277@gmail.com">
+                                        </div>
+                                    </div>
+                                    <div class="row my-4 mt-3 g-0 opacity-25"><hr></div>
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-lg-2"><p class="m-0 mb-2">Mobile Number:</p></div>
+                                        <div class="col-lg-5">
+                                            <input type="text" class="border p-1 ps-2 rounded-1 mb-2" placeholder="9380248374">
+                                        </div>
+                                    </div>
+                                    <div class="row my-4 mt-3 g-0 opacity-25"><hr></div>
+                                    <div class="row g-0">
+                                        <div class="col">
+                                            <button class="p-2 px-5 border-0 text-light rounded-1 edit_personal_info_btn">Edit Personal Info</button>
+                                        </div>
+                                        <div class="col d-none">
+                                            <button class="p-2 px-5 border-0 text-light rounded-1 save_personal_info_btn">Save Information</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- personal Info end -->
+                        <!-- manage_address -->
+                        <div class="manage_address_content_section content_wrappers_group" id="manage_address_content">
+                            <div class="content_body mx-3 mt-4 mx-lg-4 h-75">
+                                <div class="container-fluid manage_address_section bg-white p-5 rounded-1 scroll_bar overflow-y-scroll">
+                                    <div class="row g-0 pb-4 mb-4 border-bottom address_item">
+                                        <div class="col-lg-6 col-11">
+                                            <span class="type">
+                                                <span class="opacity-50 fw-medium">Type :</span>
+                                                <span class="fw-medium">Home</span>
+                                            </span>
+                                            <div class="username_mobile my-2 mb-1">
+                                                <span class="username fw-medium h5 me-5">Shivaram Krishna</span>
+                                                <span class="mobile fw-medium h5">9380248374</span>
+                                            </div>
+                                            <div class="useraddress">
+                                                <p class=" my-0">Raghavendra colony, shaktinagar, deosugur, raichur - 584170</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-none d-lg-block col-lg-6 address_btns_wrapper text-end">
+                                            <div class="address_btns_inner_wrapper w-100 ms-auto">
+                                                <button class="rounded-1 delete_address_btn w-25 address_btns me-5">Delete</button>
+                                                <button class="rounded-1 edit_address_btn w-25 address_btns">Edit</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-1 d-lg-none text-end">
+                                            <div class="dropstart">
+                                                <button class="border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="assets/menu_dots.svg" alt="" height="15">
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-0 pb-4 mb-4 border-bottom address_item">
+                                        <div class="col-lg-6 col-11">
+                                            <span class="type">
+                                                <span class="opacity-50 fw-medium">Type :</span>
+                                                <span class="fw-medium">Home</span>
+                                            </span>
+                                            <div class="username_mobile my-2 mb-1">
+                                                <span class="username fw-medium h5 me-5">Shivaram Krishna</span>
+                                                <span class="mobile fw-medium h5">9380248374</span>
+                                            </div>
+                                            <div class="useraddress">
+                                                <p class=" my-0">Raghavendra colony, shaktinagar, deosugur, raichur - 584170</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-none d-lg-block col-lg-6 address_btns_wrapper text-end">
+                                            <div class="address_btns_inner_wrapper w-100 ms-auto">
+                                                <button class="rounded-1 delete_address_btn w-25 address_btns me-5">Delete</button>
+                                                <button class="rounded-1 edit_address_btn w-25 address_btns">Edit</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-1 d-lg-none text-end">
+                                            <div class="dropstart">
+                                                <button class="border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="assets/menu_dots.svg" alt="" height="15">
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-0 pb-4 mb-4 border-bottom address_item">
+                                        <div class="col-lg-6 col-11">
+                                            <span class="type">
+                                                <span class="opacity-50 fw-medium">Type :</span>
+                                                <span class="fw-medium">Home</span>
+                                            </span>
+                                            <div class="username_mobile my-2 mb-1">
+                                                <span class="username fw-medium h5 me-5">Shivaram Krishna</span>
+                                                <span class="mobile fw-medium h5">9380248374</span>
+                                            </div>
+                                            <div class="useraddress">
+                                                <p class=" my-0">Raghavendra colony, shaktinagar, deosugur, raichur - 584170</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-none d-lg-block col-lg-6 address_btns_wrapper text-end">
+                                            <div class="address_btns_inner_wrapper w-100 ms-auto">
+                                                <button class="rounded-1 delete_address_btn w-25 address_btns me-5">Delete</button>
+                                                <button class="rounded-1 edit_address_btn w-25 address_btns">Edit</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-1 d-lg-none text-end">
+                                            <div class="dropstart">
+                                                <button class="border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="assets/menu_dots.svg" alt="" height="15">
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-0 pb-4 mb-4 border-bottom address_item">
+                                        <div class="col-lg-6 col-11">
+                                            <span class="type">
+                                                <span class="opacity-50 fw-medium">Type :</span>
+                                                <span class="fw-medium">Home</span>
+                                            </span>
+                                            <div class="username_mobile my-2 mb-1">
+                                                <span class="username fw-medium h5 me-5">Shivaram Krishna</span>
+                                                <span class="mobile fw-medium h5">9380248374</span>
+                                            </div>
+                                            <div class="useraddress">
+                                                <p class=" my-0">Raghavendra colony, shaktinagar, deosugur, raichur - 584170</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-none d-lg-block col-lg-6 address_btns_wrapper text-end">
+                                            <div class="address_btns_inner_wrapper w-100 ms-auto">
+                                                <button class="rounded-1 delete_address_btn w-25 address_btns me-5">Delete</button>
+                                                <button class="rounded-1 edit_address_btn w-25 address_btns">Edit</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-1 d-lg-none text-end">
+                                            <div class="dropstart">
+                                                <button class="border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="assets/menu_dots.svg" alt="" height="15">
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row g-0">
+                                        <a href="" class="text-decoration-underline fw-medium primary_color">+ Add new address</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- manage_address end -->
+                        <!-- others -->
+                        <div class="others_content_section content_wrappers_group" id="others_content">
+                            <div class="content_body mx-3 mt-4 mx-lg-4 h-75">
+                                <div class="container-fluid others_section bg-white p-5 rounded-1 overflow-y-scroll scroll_bar">
+                                    <div class="row g-0">
+                                        <p class="opacity-75 border-bottom pb-2">Your Fonts</p>
+                                    </div>
+                                    <div class="row g-0 font_item pb-4 border-bottom mb-4">
+                                        <div class="col-lg-6">
+                                            <div class="font_item_header d-flex justify-content-between">
+                                                <div>
+                                                    <div class="font_name mb-1">
+                                                        <span class="opacity-50">Font Name: </span>
+                                                        <span class="fw-medium"> My Font 1</span>
+                                                    </div>
+                                                    <div class="font_desc">
+                                                        <span class="opacity-50">Font Description: </span>
+                                                        <span class="fw-medium"> My cursive handwriting font with more letter spacing.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="menu_icon d-lg-none">
+                                                    <div class="dropstart">
+                                                        <button class="border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <img src="assets/menu_dots.svg" alt="" height="15">
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                            <li><a class="dropdown-item" href="#">Download</a></li>
+                                                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="font_item_body p-4 border border-secondary rounded mt-3">
+                                                <p class="m-0" id="font_1">This is the sample text using the font “Myfont1”</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 d-flex flex-column font_btn_wrapper d-none">
+                                            <button class="edit_font font_btns">Edit Font</button>
+                                            <button class="download_font font_btns">Download Font</button>
+                                            <button class="delete_font font_btns">Delete Font</button>
+                                        </div>
+                                    </div>
+                                    <div class="row g-0 font_item pb-4 border-bottom mb-4">
+                                        <div class="col-lg-6">
+                                            <div class="font_item_header d-flex justify-content-between">
+                                                <div>
+                                                    <div class="font_name mb-1">
+                                                        <span class="opacity-50">Font Name: </span>
+                                                        <span class="fw-medium"> My Font 2</span>
+                                                    </div>
+                                                    <div class="font_desc">
+                                                        <span class="opacity-50">Font Description: </span>
+                                                        <span class="fw-medium"> My title face font with less letter spacing.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="menu_icon d-lg-none">
+                                                    <div class="dropstart">
+                                                        <button class="border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <img src="assets/menu_dots.svg" alt="" height="15">
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                            <li><a class="dropdown-item" href="#">Download</a></li>
+                                                            <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="font_item_body p-4 border border-secondary rounded mt-3">
+                                                <p class="m-0" id="font_2">This is the sample text using the font “Myfont1”</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 d-flex flex-column font_btn_wrapper d-none">
+                                            <button class="edit_font font_btns">Edit Font</button>
+                                            <button class="download_font font_btns">Download Font</button>
+                                            <button class="delete_font font_btns">Delete Font</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- others end -->
+                        <!-- logout -->
+                        <!-- Modal -->
+                        <div class="logout_content_section">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+                                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    You choose to logout. You can login back again.
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-danger">Logout</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- logout end-->
+                    </div>
+                    <div class="row g-0 px-4 bg-white content_footer w-100 align-items-center justify-content-between py-2">
+                        <div class="col-8 opacity-50" style="font-size: 12px;">© 2023 Pen2Parcel, All rights reserved.</div>
+                        <div class="col-4">
+                            <ul class="d-flex justify-content-end mb-0 p-0 text-end opacity-75 gap-lg-4 gap-2">
+                                <li><a href=""><img src="assets/Instagram.png" alt="" height="18"></a></li>
+                                <li><a href=""><img src="assets/Facebook.png" alt="" height="18"></a></li>
+                                <li><a href=""><img src="assets/YouTube.png" alt="" height="18"></a></li>
+                                <li><a href=""><img src="assets/TwitterX.png" alt="" height="18"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
