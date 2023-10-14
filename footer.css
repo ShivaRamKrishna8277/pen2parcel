@@ -1,35 +1,4 @@
 #footer_section{
     background: var(--p_color);
-    padding-bottom: 0 !important;
-}
-.f-l-group{
-    padding-left: 0 !important;
-}
-.f-l-group li{
-    text-transform: capitalize;
-}
-.f-l-group li a{
-    color: white !important;
-}
-.f-l-group li a:hover{
-    text-decoration: underline !important;
-}
-.h6-f{
-    font-size: 12px;
-}
-.sm-icon{
-    height: 1.5rem;
-    width: auto;
-}
-#footer_section hr{
-    border: none;
-    border-top: 2px solid #ffffff69;
-}
-.cr_s{
-    color: white;
-    font-size: 15px;
-    font-weight: 400;
-    margin-top: 1%;
-    padding: 2.5% 0 1% 0;
-    border-top: 2px solid #ffffff2a;
+    padding: 0 5%;
 }
